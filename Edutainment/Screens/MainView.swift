@@ -14,7 +14,7 @@ struct MainView: View {
         Group {
             switch viewModel.gameState {
             case .settings:
-                SettingsView()
+                SettingsView(viewModel: viewModel)
             case .playing:
                 GameView()
             case .gameOver:

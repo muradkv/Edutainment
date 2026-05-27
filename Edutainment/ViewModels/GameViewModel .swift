@@ -16,6 +16,8 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var currentQuestionIndex = 0
     @Published private(set) var score = 0
     
+    let questionOptions = [5, 10, 20]
+    
     func generateQuestions() {
         questions.removeAll()
         
