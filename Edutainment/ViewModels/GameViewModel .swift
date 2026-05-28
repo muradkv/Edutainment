@@ -33,4 +33,19 @@ final class GameViewModel: ObservableObject {
         score = 0
         gameState = .playing
     }
+    
+    func checkAnswer(_ input: String) {
+        guard let number = Int(input) else { return }
+        
+        if questions[currentQuestionIndex].answer == number {
+            score += 1
+        }
+    
+        if currentQuestionIndex == questionCount - 1 {
+            gameState = .gameOver
+            print("game over")
+        } else {
+            currentQuestionIndex += 1
+        }
+    }
 }
