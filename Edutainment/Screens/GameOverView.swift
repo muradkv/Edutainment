@@ -29,7 +29,7 @@ struct GameOverView: View {
             Spacer()
             
             Button("Play Again") {
-                viewModel.gameState = .settings
+                viewModel.restartGame()
             }
             .font(.title2.bold())
             .frame(maxWidth: .infinity)
