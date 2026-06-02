@@ -18,7 +18,7 @@ struct MainView: View {
             case .playing:
                 GameView(viewModel: viewModel)
             case .gameOver:
-                GameOverView()
+                GameOverView(viewModel: viewModel)
             }
         }
     }

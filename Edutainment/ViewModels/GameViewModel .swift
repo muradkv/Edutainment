@@ -43,7 +43,6 @@ final class GameViewModel: ObservableObject {
     
         if currentQuestionIndex == questionCount - 1 {
             gameState = .gameOver
-            print("game over")
         } else {
             currentQuestionIndex += 1
         }
