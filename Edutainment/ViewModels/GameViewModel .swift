@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class GameViewModel: ObservableObject {
-    @Published var targetTable = 2
+    @Published private(set) var targetTable = 2
     @Published var questionCount = 5
     
     @Published private(set) var gameState: GameState = .settings
@@ -54,5 +54,13 @@ final class GameViewModel: ObservableObject {
         withAnimation {
             gameState = .settings
         }
+    }
+    
+    func decrementTable() {
+        targetTable = max(2, targetTable - 1)
+    }
+
+    func incrementTable() {
+        targetTable = min(12, targetTable + 1)
     }
 }
