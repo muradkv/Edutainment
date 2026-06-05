@@ -16,6 +16,10 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var currentQuestionIndex = 0
     @Published private(set) var score = 0
     
+    @Published var feedbackTitle: String = ""
+    @Published var showFeedback: Bool = false
+    @Published var isAnswerCorrect: Bool = false
+    
     let questionOptions = [5, 10, 20]
     
     var currentQuestion: Question {
@@ -39,18 +43,34 @@ final class GameViewModel: ObservableObject {
     }
     
     func checkAnswer(_ input: String) {
-        guard let number = Int(input) else { return }
+        let correctAnswer = currentQuestion.answer
+        let isCorrect = Int(input) == correctAnswer
         
-        if questions[currentQuestionIndex].answer == number {
+        if isCorrect {
             score += 1
-        }
-    
-        if currentQuestionIndex == questionCount - 1 {
-            withAnimation {
-                gameState = .gameOver
-            }
+            feedbackTitle = "Awesome! 🌟"
+            isAnswerCorrect = true
         } else {
-            currentQuestionIndex += 1
+            feedbackTitle = "Oops! 🙈"
+            isAnswerCorrect = false
+        }
+        
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.5, blendDuration: 0)) {
+            showFeedback = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            withAnimation(.easeOut(duration: 0.3)) {
+                self.showFeedback = false
+            }
+            
+            if self.currentQuestionIndex == self.questionCount - 1 {
+                withAnimation {
+                    self.gameState = .gameOver
+                }
+            } else {
+                self.currentQuestionIndex += 1
+            }
         }
     }
     
@@ -63,7 +83,7 @@ final class GameViewModel: ObservableObject {
     func decrementTable() {
         targetTable = max(2, targetTable - 1)
     }
-
+    
     func incrementTable() {
         targetTable = min(12, targetTable + 1)
     }

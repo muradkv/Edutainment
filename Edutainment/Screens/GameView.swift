@@ -70,6 +70,20 @@ struct GameView: View {
         }
         .frame(maxWidth: .infinity)
         .whiteCardStyle()
+        .overlay(alignment: .top) {
+            if viewModel.showFeedback {
+                Text(viewModel.feedbackTitle)
+                    .font(.system(size: 50, weight: .black, design: .rounded))
+                    .foregroundColor(viewModel.isAnswerCorrect ? .green : .red)
+                    .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+                    .transition(.asymmetric(
+                        insertion: .scale.combined(with: .opacity),
+                        removal: .opacity
+                    ))
+                    .zIndex(1)
+                    .offset(y: -100)
+            }
+        }
     }
 }
 
