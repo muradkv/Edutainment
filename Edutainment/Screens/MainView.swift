@@ -11,13 +11,17 @@ struct MainView: View {
     @StateObject private var viewModel = GameViewModel()
     
     var body: some View {
-        switch viewModel.gameState {
-        case .settings:
-            SettingsView(viewModel: viewModel)
-        case .playing:
-            GameView(viewModel: viewModel)
-        case .gameOver:
-            GameOverView(viewModel: viewModel)
+        ZStack {
+            AppBackgroundView()
+            
+            switch viewModel.gameState {
+            case .settings:
+                SettingsView(viewModel: viewModel)
+            case .playing:
+                GameView(viewModel: viewModel)
+            case .gameOver:
+                GameOverView(viewModel: viewModel)
+            }
         }
     }
 }
