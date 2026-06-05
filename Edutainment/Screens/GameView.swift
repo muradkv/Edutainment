@@ -12,43 +12,64 @@ struct GameView: View {
     @State private var answerInput = ""
     
     var body: some View {
-        VStack(spacing: 30) {
-            Text("Question \(viewModel.currentQuestionIndex + 1) of \(viewModel.questionCount)")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-            
-            Text("Score: \(viewModel.score)")
-                .font(.title3.bold())
-            
-            Spacer()
-            
-            let currentQuestion = viewModel.questions[viewModel.currentQuestionIndex]
-            
-            Text("What is")
-                .font(.title2)
-            
-            Text(currentQuestion.text)
-                .font(.system(size: 60, weight: .black, design: .rounded))
-            
-            TextField("Answer", text: $answerInput)
-                .keyboardType(.numberPad)
-                .textFieldStyle(.roundedBorder)
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: 150)
-            
-            Button("Submit") {
-                viewModel.checkAnswer(answerInput)
-                answerInput = ""
+        VStack {
+            HStack {
+                Text(
+                    "Question \(viewModel.currentQuestionIndex + 1) / \(viewModel.questionCount)"
+                )
+                .font(.subheadline)
+                .fontWeight(.bold)
+                .foregroundColor(.gray)
+                
+                Spacer()
+                
+                Text("Score: \(viewModel.score)")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
             }
-            .buttonStyle(.borderedProminent)
-            .font(.title2)
-            .disabled(answerInput.isEmpty)
+            .padding()
             
-            Spacer()
-            Spacer()
+            VStack(spacing: 40) {
+                
+                VStack(spacing: 10) {
+                    Text("What is")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.gray)
+                        .padding(.top)
+                    
+                    Text(viewModel.currentQuestion.text)
+                        .font(.system(size: 80, weight: .black, design: .rounded))
+                        .foregroundColor(.black)
+                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+                }
+                
+                TextField("?", text: $answerInput)
+                    .keyboardType(.numberPad)
+                    .font(.system(size: 50, weight: .heavy, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+                    .frame(maxWidth: .infinity, minHeight: 80)
+                    .background(.white)
+                    .clipShape(Capsule())
+                    .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 0)
+                
+                Button("Submit") {
+                    viewModel.checkAnswer(answerInput)
+                    answerInput = ""
+                }
+                .font(.system(.title3, design: .rounded).bold())
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(Color.cyan)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .disabled(answerInput.isEmpty)
+            }
         }
-        .padding()
+        .frame(maxWidth: .infinity)
+        .whiteCardStyle()
     }
 }
 
@@ -56,5 +77,8 @@ struct GameView: View {
     let previewModel = GameViewModel()
     previewModel.generateQuestions()
     
-    return GameView(viewModel: previewModel)
+    return ZStack {
+        AppBackgroundView()
+        GameView(viewModel: previewModel)
+    }
 }

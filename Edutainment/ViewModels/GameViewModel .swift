@@ -18,6 +18,10 @@ final class GameViewModel: ObservableObject {
     
     let questionOptions = [5, 10, 20]
     
+    var currentQuestion: Question {
+        questions[currentQuestionIndex]
+    }
+    
     func generateQuestions() {
         questions = (0..<questionCount).map { _ in
             let num1 = Int.random(in: 2...targetTable)
