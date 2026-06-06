@@ -29,7 +29,7 @@ struct GameOverView: View {
             Spacer()
             
             Button("Play Again") {
-                viewModel.restartGame()
+                viewModel.showSettings()
             }
             .font(.title2.bold())
             .frame(maxWidth: .infinity)
@@ -44,7 +44,7 @@ struct GameOverView: View {
 
 #Preview {
     let previewModel = GameViewModel()
-    previewModel.generateQuestions()
+    previewModel.startGame()
     
     return GameOverView(viewModel: previewModel)
 }

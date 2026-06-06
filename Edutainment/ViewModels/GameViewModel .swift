@@ -26,13 +26,8 @@ final class GameViewModel: ObservableObject {
         questions[currentQuestionIndex]
     }
     
-    func generateQuestions() {
-        questions = (0..<questionCount).map { _ in
-            let num1 = Int.random(in: 2...targetTable)
-            let num2 = Int.random(in: 1...12)
-            
-            return Question(factor1: num1, factor2: num2)
-        }
+    func startGame() {
+        questions = makeQuestions()
         
         currentQuestionIndex = 0
         score = 0
@@ -74,7 +69,16 @@ final class GameViewModel: ObservableObject {
         }
     }
     
-    func restartGame() {
+    private func makeQuestions() -> [Question] {
+        (0..<questionCount).map { _ in
+            let num1 = Int.random(in: 2...targetTable)
+            let num2 = Int.random(in: 1...12)
+            
+            return Question(factor1: num1, factor2: num2)
+        }
+    }
+    
+    func showSettings() {
         withAnimation {
             gameState = .settings
         }

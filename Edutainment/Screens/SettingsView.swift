@@ -85,7 +85,7 @@ struct SettingsView: View {
                 }
                 
                 Button("Start Game") {
-                    viewModel.generateQuestions()
+                    viewModel.startGame()
                 }
                 .font(.system(.title3, design: .rounded).bold())
                 .frame(maxWidth: .infinity)
