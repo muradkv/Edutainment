@@ -11,34 +11,33 @@ struct GameOverView: View {
     @ObservedObject var viewModel: GameViewModel
     
     var body: some View {
-        VStack {
-            Spacer()
-            
+        VStack(spacing: 30) {
             Text("🥳")
                 .font(.system(size: 100))
-                .padding(.bottom, 10)
+                .padding(.top)
             
             Text("Well Done!")
-                .font(.system(size: 40, weight: .heavy, design: .rounded))
-                .foregroundStyle(.green)
+                .font(.system(.largeTitle, design: .rounded).bold())
+                .foregroundColor(.black)
             
             Text("You scored \(viewModel.score) out of \(viewModel.questionCount)")
-                .font(.title2.weight(.semibold))
-                .foregroundStyle(.secondary)
-            
-            Spacer()
+                .font(.system(.title2, design: .rounded))
+                .fontWeight(.bold)
+                .foregroundColor(.gray)
             
             Button("Play Again") {
                 viewModel.showSettings()
             }
-            .font(.title2.bold())
+            .font(.system(.title3, design: .rounded).bold())
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 17)
-            .background(.blue)
-            .foregroundStyle(.white)
+            .padding(.vertical, 16)
+            .background(Color.cyan)
+            .foregroundColor(.white)
             .clipShape(Capsule())
         }
-        .padding(30)
+        .frame(maxWidth: .infinity)
+        .whiteCardStyle()
+        .padding()
     }
 }
 
@@ -46,5 +45,8 @@ struct GameOverView: View {
     let previewModel = GameViewModel()
     previewModel.startGame()
     
-    return GameOverView(viewModel: previewModel)
+    return ZStack {
+        AppBackgroundView()
+        GameOverView(viewModel: previewModel)
+    }
 }
