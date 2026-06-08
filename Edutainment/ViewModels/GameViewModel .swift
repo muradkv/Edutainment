@@ -26,6 +26,26 @@ final class GameViewModel: ObservableObject {
         questions[currentQuestionIndex]
     }
     
+    var gameOverTitle: String {
+        if score == questionCount {
+            return "Perfect!"
+        } else if score >= questionCount / 2 {
+            return "Good Job!"
+        } else {
+            return "Keep Practicing!"
+        }
+    }
+    
+    var gameOverEmoji: String {
+        if score == questionCount {
+            return "🏆"
+        } else if score >= questionCount / 2 {
+            return "🌟"
+        } else {
+            return "💪"
+        }
+    }
+    
     func startGame() {
         questions = makeQuestions()
         

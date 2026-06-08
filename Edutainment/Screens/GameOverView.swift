@@ -12,11 +12,11 @@ struct GameOverView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("🥳")
+            Text(viewModel.gameOverEmoji)
                 .font(.system(size: 100))
                 .padding(.top)
             
-            Text("Well Done!")
+            Text(viewModel.gameOverTitle)
                 .font(.system(.largeTitle, design: .rounded).bold())
                 .foregroundColor(.black)
             
