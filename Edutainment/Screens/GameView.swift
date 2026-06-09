@@ -73,12 +73,6 @@ struct GameView: View {
                         viewModel.checkAnswer(answerInput)
                         answerInput = ""
                     }
-                    .font(.system(.title3, design: .rounded).bold())
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.cyan)
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
                     .disabled(answerInput.isEmpty)
                 }
             }

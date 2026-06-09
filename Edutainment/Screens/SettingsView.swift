@@ -13,68 +13,22 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 30) {
             
-            VStack(spacing: 8) {
-                Text("Math tables")
-                    .font(.system(size: 36, weight: .heavy, design: .rounded))
-                
-                Text("Set up your game")
-                    .font(.system(size: 18, weight: .light, design: .rounded))
-                    .foregroundColor(.gray)
-            }
+            SettingsHeaderView()
             
             VStack(spacing: 30) {
                 
                 VStack(spacing: 30) {
-                    Text("Multiplication table".uppercased())
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    SectionTitleView(title: "Multiplication table")
                     
-                    HStack(spacing: 25) {
-                        Button {
-                            viewModel.decrementTable()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.title2)
-                                .frame(width: 50, height: 50)
-                                .background(Color.gray.opacity(0.2))
-                                .foregroundColor(.primary)
-                                .clipShape(Circle())
-                        }
-                        
-                        Text("\(viewModel.targetTable)")
-                            .font(.system(size: 40, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(width: 100, height: 100)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.cyan.opacity(1), Color.purple.opacity(1)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .clipShape(Circle())
-                        
-                        Button {
-                            viewModel.incrementTable()
-                        } label: {
-                            Image(systemName: "chevron.right")
-                                .font(.title2)
-                                .frame(width: 50, height: 50)
-                                .background(Color.gray.opacity(0.2))
-                                .foregroundColor(.primary)
-                                .clipShape(Circle())
-                        }
-                    }
+                    TableSelectorView(
+                        currentTabel: viewModel.targetTable,
+                        onDecrement: { viewModel.decrementTable() },
+                        onIncrement: { viewModel.incrementTable() }
+                    )
                 }
                 
                 VStack(spacing: 15) {
-                    Text("Questions".uppercased())
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    SectionTitleView(title: "Questions")
                     
                     Picker("Questions", selection: $viewModel.questionCount) {
                         ForEach(viewModel.questionOptions, id: \.self) { option in
@@ -84,15 +38,9 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                 }
                 
-                Button("Start Game") {
+                PrimaryButton(title: "Start Game") {
                     viewModel.startGame()
                 }
-                .font(.system(.title3, design: .rounded).bold())
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
             }
             .whiteCardStyle()
         }
@@ -106,3 +54,5 @@ struct SettingsView: View {
         SettingsView(viewModel: GameViewModel())
     }
 }
+
+
