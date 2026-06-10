@@ -23,25 +23,18 @@ struct GameOverView: View {
                     .font(.system(.largeTitle, design: .rounded).bold())
                     .foregroundColor(.black)
                 
-                Text("You scored \(viewModel.score) out of \(viewModel.questionCount)")
-                    .font(.system(.title2, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
+                GameResultScoreView(
+                    score: viewModel.score,
+                    totalQuestions: viewModel.questionCount
+                )
                 
-                Button("Play Again") {
+                PrimaryButton(title: "Play Again") {
                     viewModel.showSettings()
                 }
-                .font(.system(.title3, design: .rounded).bold())
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.cyan)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
             }
             .frame(maxWidth: .infinity)
             .whiteCardStyle()
             .padding()
-            
             
             Color.clear
                 .contentShape(Rectangle())
