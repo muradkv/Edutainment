@@ -36,3 +36,15 @@ Beyond the core requirements, the entire codebase was meticulously refactored fr
 * **Custom Modifiers (DRY Principle):** Created a reusable `.whiteCardStyle()` ViewModifier to enforce visual consistency and clean up repetitive layout code across different screens.
 
 🔗 **[Full challenge description here](https://www.hackingwithswift.com/100/swiftui/35)**
+
+## Project Versioning & Changelog
+
+The development process was executed in two distinct iterations to demonstrate evolutionary refactoring practices. The repository is explicitly tagged as follows:
+
+* **v1.0.0 (Functional MVP)** — `commit: bb0b11b`
+    Core logic implementation. Contains the initial MVVM structure, state machine setup (`GameState`), multiplication data verification engine, and end-of-game round progression.
+
+ <img width="25%" alt="ver 1" src="https://github.com/user-attachments/assets/a17bcf71-6f67-4255-9f28-226083e65ed9" />
+
+* **v2.0.0 (UI Overhaul & Componentization)** — `commit: d015293`
+    Production-ready update. Features a complete card-based design implementation, custom animation/feedback system, strict subview composition (`Dumb Views` architecture), and code deduplication (DRY) via atomic UI abstractions.
