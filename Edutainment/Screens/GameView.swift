@@ -27,22 +27,11 @@ struct GameView: View {
             .padding()
             
             VStack {
-                HStack {
-                    Text(
-                        "Question \(viewModel.currentQuestionIndex + 1) / \(viewModel.questionCount)"
-                    )
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
-                    
-                    Spacer()
-                    
-                    Text("Score: \(viewModel.score)")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.gray)
-                }
-                .padding()
+                GameHeaderView(
+                    currentIndex: viewModel.currentQuestionIndex,
+                    totalQuestions: viewModel.questionCount,
+                    score: viewModel.score
+                )
                 
                 VStack(spacing: 40) {
                     
@@ -69,7 +58,7 @@ struct GameView: View {
                         .clipShape(Capsule())
                         .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 0)
                     
-                    Button("Submit") {
+                    PrimaryButton(title: "Submit") {
                         viewModel.checkAnswer(answerInput)
                         answerInput = ""
                     }
@@ -80,16 +69,10 @@ struct GameView: View {
             .whiteCardStyle()
             .overlay(alignment: .top) {
                 if viewModel.showFeedback {
-                    Text(viewModel.feedbackTitle)
-                        .font(.system(size: 50, weight: .black, design: .rounded))
-                        .foregroundColor(viewModel.isAnswerCorrect ? .green : .red)
-                        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
-                        .transition(.asymmetric(
-                            insertion: .scale.combined(with: .opacity),
-                            removal: .opacity
-                        ))
-                        .zIndex(1)
-                        .offset(y: -100)
+                    FeedbackToastView(
+                        title: viewModel.feedbackTitle,
+                        isCorrect: viewModel.isAnswerCorrect
+                    )
                 }
             }
         }
